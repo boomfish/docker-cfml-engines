@@ -13,14 +13,11 @@ ENV RAILO_INSTALLER_URL http://www.getrailo.org/railo/remote/download42/4.2.1.00
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-# Railo installer options
-ADD options.txt /root/railo-options.txt
-
 # Download installer, run it, and delete it in one step to avoid committing the installer in a FS layer
 RUN curl $RAILO_INSTALLER_URL -o /root/railo-installer && \
 	chmod u+x /root/railo-installer && \
-	/root/railo-installer --mode unattended --railopass docker --optionfile /root/railo-options.txt && \
-	rm -rf /root/railo-installer /root/railo-options.txt
+	/root/railo-installer --mode unattended --railopass docker --installconn false --startatboot false && \
+	rm -rf /root/railo-installer /tmp/*
 
 # Install Apache Tomcat Native Library (for Tomcat performance) and Perl Template Toolkit (for config templates)
 RUN add-apt-repository ppa:pharmgkb/trusty && \
