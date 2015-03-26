@@ -1,19 +1,18 @@
-# Docker containers for CFML application servers
+# Docker images for CFML application servers
 
 This repository contains Dockerfiles to build CFML application servers.
 
-CFML engines supported: Railo. Lucee support will be added shortly.
+The only CFML engine supported at the moment is [Railo](http://www.getrailo.org/). [Lucee](http://lucee.org/) support will be added shortly.
 
-Adobe ColdFusion is unlikely to be supported from this repository due to licensing requirements.
-
+[Adobe ColdFusion](http://www.adobe.com/products/coldfusion) is unlikely to be supported from this repository due to licensing requirements.
 
 ## Features
 
 ### Tomcat with Native Library and Java Agent
 
-The CFML engines run on Apache Tomcat with a compatible version of the Tomcat Native Library installed for better performance in production environments.
+A compatible version of the [Apache Tomcat Native Library](http://tomcat.apache.org/native-doc/) is installed for better Tomcat performance in production environments.
 
-For Railo, the Java Agent is enabled which allows it to better manage the memory heap used for storing compiled CFML code.
+Railo's Java Agent for the JVM is enabled for [better memory management of compiled CFML code](http://blog.getrailo.com/post.cfm/railo-4-1-smarter-template-compilation).
 
 ### Support for single-site and multiple-site applications
 
@@ -21,42 +20,31 @@ The default configuration serves a single application for any hostname on the li
 
 ### baseimage-docker
 
-These containers use [baseimage-docker](https://github.com/phusion/baseimage-docker) for the base image. This makes the images fairly large (600MB+) but it handles the [zombie reaping problem](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) which can occur for applications that use `cfexecute`. It also means you can use `cron` to schedule application cleanup tasks instead of the server's built-in task scheduler.
+These containers use [baseimage-docker](https://github.com/phusion/baseimage-docker) for their base image. This makes the images fairly large (600MB+) but provides a few benefits:
+
+- It handles the [zombie reaping problem](https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/) which can occur for applications that use `cfexecute`
+- It responds better to `docker stop` by signalling Tomcat and giving it some time to shut down cleanly.
+- You can use `cron` to schedule application cleanup tasks instead of the server's built-in task scheduler.
 
 ### Template generator
 
-These containers include the Perl Text Template Toolkit and a custom version of `tpage` that 
+These containers include the Perl [Template Toolkit](http://www.template-toolkit.org/) and a custom version of the [tpage](http://www.template-toolkit.org/docs/tools/tpage.html) command-line tool that can read environment variables. This tool is useful for generating Railo configuration files from template files and environment variables either at build time (in a Dockerfile) or run time(in a startup script).
 
-## Using this image
 
-### Accessing the service
+## Details on Docker images
 
-The containers run their respective engine on Tomcat and listen on port 8888. This port is exposed to other containers. You must publish the port if you wish to browse to it from the Docker host.
+[Railo CFML engine on Docker](railo/README.md)
 
-### Accessing the Web admin
+## Prebuilt images on Docker Hub registry
 
-The Railo admin is accessible from port 8888 on `/railo-context/admin/`. The server password is 'docker'.
+Prebuilt Docker images are available on [Docker Hub](https://hub.docker.com/). These images are are created via [automated builds](https://docs.docker.com/docker-hub/builds/).
 
-It is **strongly** recommended that you _limit access to the Web admin_ and _change the server password_ when running containers based on this image in production environments.
+These images are not 'trusted' and are provided with no warranty. You may find these prebuilt images useful for trying out the containers, but for any serious work I recommend you fork the GitHub repository and use your fork to build your own images. Everything needed to build 
 
-### Bundled application
+You can find the prebuilt images in the following repositories:
 
-The default site in the Railo image contains the welcome application bundled with the installer so you can test it. This bundled application however is deleted from any derived images via an `ONBUILD` instruction in the Dockerfile so you can ADD your own CFML application to the same location in your own Dockerfiles.
+[Railo CFML engine](https://registry.hub.docker.com/u/boomfish/railo-engine/)
 
-### Application config
+## License
 
-Railo and Lucee store their application configurations under `WEB-INF` by default. However storing the configurations under the web root causes problems in development environments, so for the default site these have been moved to folders outside the web root.
-
-The location of the application config for the default site is set in the `WEB-INF/web.xml` included in the application. If you use your own web root make sure it includes a similar `WEB-INF/web.xml` file.
-
-### Application folders
-
-The application folders used by the container vary by application engine.
-
-For Railo:
-
-- Tomcat config: /opt/railo/tomcat/conf
-- Tomcat logs: /opt/railo/tomcat/logs
-- Web root for default site: /opt/railo/tomcat/webapps/ROOT
-- Railo config for default site: /opt/railo/config/web/ROOT
-- Railo logs for default site: /opt/railo/config/web/ROOT/logs
+The Docker files and config files are available under the [MIT License](LICENSE.txt). The CFML engines are available under their respective licenses.
