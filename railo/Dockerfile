@@ -6,6 +6,8 @@
 # a list of version numbers.
 FROM phusion/baseimage:0.9.16
 
+MAINTAINER Dennis Clark <boomfish@gmail.com>
+
 ENV RAILO_INSTALLER_URL http://www.getrailo.org/railo/remote/download42/4.2.1.008/tomcat/linux/railo-4.2.1.008-pl0-linux-x64-installer.run
 
 # Use baseimage-docker's init system.
