@@ -49,7 +49,7 @@ RUN chmod 700 /etc/service/railo/run
 EXPOSE 8888 8009
 
 # Delete the default application files when using this as a base image
-ONBUILD RUN rm -rf /opt/railo/tomcat/webapps/ROOT/{Application.cfc,favicon.ico,index.cfm,res}
+ONBUILD RUN rm -rf /opt/railo/tomcat/webapps/ROOT/Application.cfc /opt/railo/tomcat/webapps/ROOT/favicon.ico /opt/railo/tomcat/webapps/ROOT/index.cfm /opt/railo/tomcat/webapps/ROOT/res
 
 
 # Uncomment this if you want to enable SSH, required for 'vagrant ssh' to work
