@@ -23,9 +23,14 @@ This container uses [baseimage-docker](https://github.com/phusion/baseimage-dock
 - It responds better to `docker stop` by signalling Tomcat and giving it some time to shut down cleanly.
 - You can use `cron` to schedule application cleanup tasks instead of the server's built-in task scheduler.
 
-### Template generator
+### Template generators
 
-This container includes the Perl [Template Toolkit](http://www.template-toolkit.org/) and a custom version of the [tpage](http://www.template-toolkit.org/docs/tools/tpage.html) command-line tool that can read environment variables. This tool is useful for generating Railo configuration files from template files and environment variables either at build time (in a Dockerfile) or run time(in a startup script).
+These containers include two template generators:
+
+- A custom version of the [tpage](http://www.template-toolkit.org/docs/tools/tpage.html) command-line tool for the Perl [Template Toolkit](http://www.template-toolkit.org/).
+- The [envtpl](https://github.com/andreasjansson/envtpl) command-line tool for the Python [Jinja2 template engine](http://jinja.pocoo.org/).
+
+Both of these generators can read environment variables and feed them as variables into their respective templates. They are useful for generating Railo configuration files from template files either at build time (in a Dockerfile) or run time (in a startup script).
 
 
 ## Using this image

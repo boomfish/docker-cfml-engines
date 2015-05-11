@@ -26,9 +26,13 @@ RUN add-apt-repository ppa:pharmgkb/trusty && \
 	apt-get update && \
 	apt-get install -y \
 		libtcnative-1 \
+		python-pip \
 		libtemplate-perl && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install envtpl for people who prefer to configure their apps via Jinja2 templates
+RUN pip install envtpl
 
 # Add custom Tomcat setenv.sh script
 COPY setenv.sh /opt/railo/tomcat/bin/
