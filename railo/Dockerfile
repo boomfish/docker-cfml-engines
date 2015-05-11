@@ -19,6 +19,8 @@ RUN curl $RAILO_INSTALLER_URL -o /root/railo-installer && \
 	/root/railo-installer --mode unattended --railopass docker --installconn false --startatboot false && \
 	rm -rf /root/railo-installer /tmp/*
 
+ENV DEBIAN_FRONTEND noninteractive
+
 # Install Apache Tomcat Native Library (for Tomcat performance) and Perl Template Toolkit (for config templates)
 RUN add-apt-repository ppa:pharmgkb/trusty && \
 	apt-get update && \
