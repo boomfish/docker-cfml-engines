@@ -21,17 +21,18 @@ RUN curl $RAILO_INSTALLER_URL -o /root/railo-installer && \
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install Apache Tomcat Native Library (for Tomcat performance) and Perl Template Toolkit (for config templates)
+# Install Apache Tomcat Native Library (for Tomcat performance) and Python Jinja2 and Perl Template Toolkit (for config templates)
 RUN add-apt-repository ppa:pharmgkb/trusty && \
 	apt-get update && \
-	apt-get install -y \
+	apt-get install -y --no-install-recommends \
 		libtcnative-1 \
 		python-pip \
+		python-jinja2 \
 		libtemplate-perl && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install envtpl for people who prefer to configure their apps via Jinja2 templates
+# Install envtpl command-line tool for Jinja2
 RUN pip install envtpl
 
 # Add custom Tomcat setenv.sh script
