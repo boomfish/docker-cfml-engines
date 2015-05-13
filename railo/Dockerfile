@@ -39,9 +39,6 @@ RUN pip install envtpl
 COPY setenv.sh /opt/railo/tomcat/bin/
 RUN chmod 755 /opt/railo/tomcat/bin/setenv.sh
 
-# Custom server.xml that treats /opt/railo/tomcat/webapps/ROOT/ as the default application (ie. matches any hostname)
-COPY server.xml /opt/railo/tomcat/conf/
-
 # Relocate Railo config for default site to /opt/railo/config/web/ROOT
 COPY web.xml /opt/railo/tomcat/webapps/ROOT/WEB-INF/web.xml
 RUN mkdir -p /opt/railo/config/web && mv /opt/railo/tomcat/webapps/ROOT/WEB-INF/railo /opt/railo/config/web/ROOT
