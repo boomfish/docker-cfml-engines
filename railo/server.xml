@@ -146,7 +146,9 @@
 		/>	
 
         <!-- Default application context -->
-        <Context path="" docBase="/opt/railo/tomcat/webapps/ROOT/" />
+        <Context path="" docBase="/opt/railo/tomcat/webapps/ROOT/">
+          <JarScanner scanClassPath="false"/>
+        </Context>
 
       </Host>
 
