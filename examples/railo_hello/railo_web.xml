@@ -2,7 +2,7 @@
 [% SET config_salt = env.RAILO_WEB_ADMIN_PASSWORD_SALT %]
 
 [% MACRO mysql_datasource BLOCK %]
-<data-source blob="false" class="org.gjt.mm.mysql.Driver" clob="false" connectionLimit="-1" connectionTimeout="1" custom="characterEncoding=UTF-8&amp;autoReconnect=true&amp;useUnicode=true&amp;allowMultiQueries=true" database="[% database %]" dsn="jdbc:mysql://{host}:{port}/{database}" host="mysql" metaCacheTimeout="60000" name="[% dsn_name %]" password="[% username %]" port="3306" storage="false" username="[% username %]" validate="false"/>
+<data-source blob="false" class="org.gjt.mm.mysql.Driver" clob="false" connectionLimit="-1" connectionTimeout="1" custom="characterEncoding=UTF-8&amp;autoReconnect=true&amp;useUnicode=true&amp;allowMultiQueries=true" database="[% database %]" dsn="jdbc:mysql://{host}:{port}/{database}" host="mysql" metaCacheTimeout="60000" name="[% dsn_name %]" password="[% password %]" port="3306" storage="false" username="[% username %]" validate="false"/>
 [% END %]
 
 [% datasources = BLOCK %]
