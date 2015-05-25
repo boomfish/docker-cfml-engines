@@ -1,0 +1,25 @@
+[% SET config_hspw = env.RAILO_WEB_ADMIN_PASSWORD_HSPW %]
+[% SET config_salt = env.RAILO_WEB_ADMIN_PASSWORD_SALT %]
+
+[% MACRO mysql_datasource BLOCK %]
+<data-source blob="false" class="org.gjt.mm.mysql.Driver" clob="false" connectionLimit="-1" connectionTimeout="1" custom="characterEncoding=UTF-8&amp;autoReconnect=true&amp;useUnicode=true&amp;allowMultiQueries=true" database="[% database %]" dsn="jdbc:mysql://{host}:{port}/{database}" host="mysql" metaCacheTimeout="60000" name="[% dsn_name %]" password="[% username %]" port="3306" storage="false" username="[% username %]" validate="false"/>
+[% END %]
+
+[% datasources = BLOCK %]
+[% mysql_datasource( dsn_name='ourdb', database=env.DSN_OURDB_DATABASE, username=env.DSN_OURDB_USERNAME, password=env.DSN_OURDB_PASSWORD ) %]
+[% mysql_datasource( dsn_name='theirdb', database=env.DSN_THEIRDB_DATABASE, username=env.DSN_THEIRDB_USERNAME, password=env.DSN_THEIRDB_PASSWORD ) %]
+[% END %]
+
+[% mail = BLOCK %]
+<server password="" port="25" smtp="mail" ssl="false" tls="false" username=""/>
+[% END %]
+
+[% directory_mappings = BLOCK %]
+<mapping physical="{railo-web}/components/lib" primary="physical" toplevel="true" trusted="false" virtual="/lib"/>
+[% END %]
+
+[% regional = BLOCK %]
+<regional locale="[% env.RAILO_LOCALE %]" timezone="[% env.TZ %]"/>
+[% END %]
+
+[% PROCESS templates/railo_web.xml.cfm %]
