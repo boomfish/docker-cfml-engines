@@ -1,0 +1,4 @@
+[% SET config_hspw = env.RAILO_WEB_ADMIN_PASSWORD_HSPW %]
+[% SET config_salt = env.RAILO_WEB_ADMIN_PASSWORD_SALT %]
+
+[% PROCESS templates/railo_web.xml.cfm %]
