@@ -1,0 +1,4 @@
+[% SET config_hspw = env.LUCEE_SERVER_ADMIN_PASSWORD_HSPW %]
+[% SET config_salt = env.LUCEE_SERVER_ADMIN_PASSWORD_SALT %]
+
+[% PROCESS templates/lucee_server.xml %]

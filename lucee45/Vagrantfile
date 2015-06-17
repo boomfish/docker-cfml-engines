@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.require_version ">= 1.6.3"
+
+ROOT = File.dirname(File.absolute_path(__FILE__))
+
+# Default env properties which can be overridden
+DOCKERHOST_VAGRANT_PATH = ENV['DOCKERHOST_VAGRANT_PATH'] || '../../'
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  dockerhost_vagrant_path = File.absolute_path(DOCKERHOST_VAGRANT_PATH, ROOT)
+  
+  config.vm.provider :docker do |d|
+    d.build_dir           = "."
+    d.cmd                 = ['/sbin/my_init','--enable-insecure-key']
+    d.has_ssh             = true
+    d.ports               = ['48081:8888']
+    d.vagrant_vagrantfile = File.join(dockerhost_vagrant_path,'Vagrantfile')
+  end
+
+  # Disable the default Vagrant synced folder
+  #config.vm.synced_folder ".", "/vagrant", :disabled => true
+  
+  # Docker containers use root user instead of vagrant
+  config.ssh.username = 'root'
+
+end
