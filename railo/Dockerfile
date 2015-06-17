@@ -39,9 +39,6 @@ RUN pip install envtpl
 COPY setenv.sh /opt/railo/tomcat/bin/
 RUN chmod 755 /opt/railo/tomcat/bin/setenv.sh
 
-# Custom railo-server.xml to enable J2EE sessions by default
-COPY railo-server.xml /opt/railo/lib/railo-server/context/
-
 # Custom server.xml that treats /opt/railo/tomcat/webapps/ROOT/ as the default application (ie. matches any hostname)
 COPY server.xml /opt/railo/tomcat/conf/
 
