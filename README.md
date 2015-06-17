@@ -2,7 +2,10 @@
 
 This repository contains Dockerfiles to build CFML application servers.
 
-The only CFML engine supported at the moment is [Railo](http://www.getrailo.org/). [Lucee](http://lucee.org/) support will be added shortly.
+Supported CFML engines:
+
+- [Railo](http://www.getrailo.org/)
+- [Lucee](http://lucee.org/)
 
 [Adobe ColdFusion](http://www.adobe.com/products/coldfusion) is unlikely to be supported from this repository due to licensing requirements.
 
@@ -38,7 +41,8 @@ Both of these generators can read environment variables and feed them as variabl
 
 ## Details on Docker images
 
-[Railo CFML engine on Docker](railo/README.md)
+- [Railo CFML engine on Docker](railo/README.md)
+- [Lucee 4.5 CFML engine on Docker](lucee45/README.md)
 
 ## Prebuilt images on Docker Hub registry
 
@@ -48,7 +52,8 @@ These images are not 'trusted' and are provided with no warranty. You may find t
 
 You can find the prebuilt images in the following repositories:
 
-[Railo CFML engine](https://registry.hub.docker.com/u/boomfish/railo-engine/)
+- [Railo CFML engine](https://registry.hub.docker.com/u/boomfish/railo-engine/)
+- [Lucee CFML engine](https://registry.hub.docker.com/u/boomfish/lucee-engine/)
 
 ## License
 
